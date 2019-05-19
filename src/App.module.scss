@@ -1,0 +1,30 @@
+.app {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden auto;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  height: 80px;
+}
+
+.logo {
+  animation: logo-spin infinite 20s linear;
+  pointer-events: none;
+  position: relative;
+  left: 50px;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

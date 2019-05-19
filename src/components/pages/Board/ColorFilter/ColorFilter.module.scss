@@ -1,0 +1,17 @@
+.board {
+  width: 70%;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.colorsContainer {
+  margin: 1rem 0;
+}
+
+.textContainer {
+  margin: 1rem 0 3rem;
+}
+
+.filterContainer {}

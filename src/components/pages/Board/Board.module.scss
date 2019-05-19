@@ -1,0 +1,21 @@
+.board {
+  width: 70%;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.colorsContainer {
+  margin: 1rem 0;
+}
+
+.textContainer {
+  margin: 1rem 0 3rem;
+}
+
+.filterContainer {
+  border: 1px solid #F44336;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
