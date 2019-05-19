@@ -14,7 +14,9 @@ body {
 
 input,
 textarea {
-	border: 0;
-	resize: none;
-	background: transparent;
+  border: 0;
+  resize: none;
+  background: transparent;
 }
+
+@import url('./theme/colors.scss');

@@ -3,9 +3,6 @@ import { IAction } from '../../models/redux';
 import { EActions, IHighlightText, IState, IUpdateColor, IUpdateFilterColor } from './types';
 
 const INITIAL_STATE: IState = {
-  text:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula nulla et blandit luctus.Praesent pellentesque, nunc a malesuada placerat, augue massa malesuada augue, vel eleifend metus turpis sit amet nunc.In et bibendum erat.Ut sed venenatis urna.Nulla commodo eget diam in gravida.Nulla et risus dictum, efficitur massa eget,   rhoncus tellus.Suspendisse ultricies fringilla metus quis bibendum.Curabitur dictum iaculis tortor ultricies pharetra.",
-  selectedColor: EColors.RED,
   colors: [
     EColors.RED,
     EColors.PINK,
@@ -24,7 +21,12 @@ const INITIAL_STATE: IState = {
     EColors.DEEPORANGE,
     EColors.BROWN
   ],
-  highlightsSelectedColor: EColors.RED,
+
+  text:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula nulla et blandit luctus.Praesent pellentesque, nunc a malesuada placerat, augue massa malesuada augue, vel eleifend metus turpis sit amet nunc.In et bibendum erat.Ut sed venenatis urna.Nulla commodo eget diam in gravida.Nulla et risus dictum, efficitur massa eget,   rhoncus tellus.Suspendisse ultricies fringilla metus quis bibendum.Curabitur dictum iaculis tortor ultricies pharetra.",
+  textColorFilter: EColors.RED,
+
+  highlightsColorFilter: EColors.RED,
   highlights: {
     Red: [{ colStart: 0, colEnd: 10, text: "Lorem ipsu" }]
   }
@@ -34,7 +36,7 @@ export default function reducer(state = INITIAL_STATE, action: IAction<any>): IS
     case EActions.UPDATE_COLOR: {
       return {
         ...state,
-        selectedColor: action.payload.color,
+        textColorFilter: action.payload.color,
         highlights: {
           ...state.highlights,
           [action.payload.color]: state.highlights[action.payload.color] || []
@@ -45,7 +47,7 @@ export default function reducer(state = INITIAL_STATE, action: IAction<any>): IS
     case EActions.UPDATE_FILTER_COLOR: {
       return {
         ...state,
-        highlightsSelectedColor: action.payload.color,
+        highlightsColorFilter: action.payload.color,
         highlights: {
           ...state.highlights,
           [action.payload.color]: state.highlights[action.payload.color] || []
@@ -58,8 +60,8 @@ export default function reducer(state = INITIAL_STATE, action: IAction<any>): IS
         ...state,
         highlights: {
           ...state.highlights,
-          [state.selectedColor]: [
-            ...state.highlights[state.selectedColor],
+          [state.textColorFilter]: [
+            ...state.highlights[state.textColorFilter],
             action.payload.coordinates
           ]
         }

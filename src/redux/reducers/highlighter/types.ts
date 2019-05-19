@@ -1,6 +1,7 @@
 import { Action } from 'redux';
 
 import { EColors } from '../../models/colors';
+import { ICoordinates } from '../../models/highlighter';
 
 /**
  * Actions
@@ -15,16 +16,14 @@ export enum EActions {
  * State
  */
 export interface IState {
-  readonly text: string;
-  readonly selectedColor: string;
   readonly colors: EColors[];
-  readonly highlightsSelectedColor: string;
+
+  readonly text: string;
+  readonly textColorFilter: string;
+
+  readonly highlightsColorFilter: string;
   readonly highlights: {
-    [color: string]: Array<{
-      colStart: number;
-      colEnd: number;
-      text: string;
-    }>;
+    [color: string]: ICoordinates[];
   };
 }
 

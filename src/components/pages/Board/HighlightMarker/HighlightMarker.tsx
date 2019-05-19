@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { ICoordinates } from '../../../../redux/models/highlighter';
+
 export interface IHighlightMarkerCoordenates {
   colStart: number;
   colEnd: number;
@@ -8,7 +10,8 @@ export interface IHighlightMarkerCoordenates {
 
 interface IProps {
   content: string;
-  highlights: any[];
+  activeColor: string;
+  highlights: any;
   onHighlight: (coordinates: IHighlightMarkerCoordenates) => void;
 }
 
@@ -28,8 +31,16 @@ class HighlightMarker extends Component<IProps> {
   };
 
   public highlightContentFromCoordinates = () => {
-    return this.props.highlights.reduce((prev, coordinates) => {
-      const update = prev.replace(coordinates.text, `<strong>${coordinates.text}</strong>`);
+    return Object.keys(this.props.highlights).reduce((prev, color) => {
+      const coordinates = this.props.highlights[color];
+
+      let update = prev;
+      coordinates.forEach((coordinate: ICoordinates) => {
+        update = update.replace(
+          coordinate.text,
+          `<span class="${color}">${coordinate.text}</span>`
+        );
+      });
 
       return update;
     }, this.props.content);

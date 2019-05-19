@@ -4,25 +4,31 @@ import { connect } from 'react-redux';
 import { IAppState } from '../../../redux/configureStore';
 import { EColors } from '../../../redux/models/colors';
 import { highlightText, updateColor, updateFilterColor } from '../../../redux/reducers/highlighter';
-import HighlightMarker from '../../shared/HighlightMarker/HighlightMarker';
 import styles from './Board.module.scss';
 import ColorFilter from './ColorFilter/ColorFilter';
+import HighlightMarker from './HighlightMarker/HighlightMarker';
 import WordsFilter from './WordsFilter/WordsFilter';
 
-interface IProps {
-  classes?: any;
-  text: string;
-  highlights: any[];
-  highlightsOnMarker: any[];
+interface IStateProps {
   colors: EColors[];
+  text: string;
+  textColorFilter: string;
+  highlights: any;
+  highlightsColorFilter: string;
+  filteredHighlights: any[];
+}
+
+interface IOwnProps {}
+
+interface IDispatchProps {
   highlightText: (text: string) => void;
   updateColor: (text: string) => void;
   updateFilterColor: (text: string) => void;
-  selectedColor: string;
-  highlightsSelectedColor: string;
 }
 
 interface IState {}
+
+type IProps = IStateProps & IOwnProps & IDispatchProps;
 
 class Board extends Component<IProps, IState> {
   public onHighlight = (coordinates: any) => {
@@ -34,41 +40,42 @@ class Board extends Component<IProps, IState> {
       <div className={styles.board}>
         {/* HIGHLIGHT CONTAINER */}
         <div className={styles.textContainer}>
-          <ColorFilter activeColor={this.props.selectedColor} onClick={this.props.updateColor} />
+          <ColorFilter activeColor={this.props.textColorFilter} onClick={this.props.updateColor} />
 
           <HighlightMarker
-            highlights={this.props.highlightsOnMarker}
+            highlights={this.props.highlights}
+            activeColor={this.props.textColorFilter}
             onHighlight={this.onHighlight}
             content={this.props.text}
           />
         </div>
 
         {/* FILTER CONTAINER */}
-        <div className={styles.filterContainer}>
+        <div className={`${styles.filterContainer} ${this.props.highlightsColorFilter}`}>
           <ColorFilter
-            activeColor={this.props.highlightsSelectedColor}
+            activeColor={this.props.highlightsColorFilter}
             onClick={this.props.updateFilterColor}
           />
 
-          <WordsFilter text={this.props.text} highlights={this.props.highlights} />
+          <WordsFilter text={this.props.text} highlights={this.props.filteredHighlights} />
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: IAppState) => ({
+const mapStateToProps = (state: IAppState): IStateProps => ({
   colors: state.todos.colors,
   text: state.todos.text,
+  textColorFilter: state.todos.textColorFilter,
 
-  highlightsOnMarker: state.todos.highlights[state.todos.selectedColor],
-  selectedColor: state.todos.selectedColor,
+  highlights: state.todos.highlights,
 
-  highlightsSelectedColor: state.todos.highlightsSelectedColor,
-  highlights: state.todos.highlights[state.todos.highlightsSelectedColor]
+  highlightsColorFilter: state.todos.highlightsColorFilter,
+  filteredHighlights: state.todos.highlights[state.todos.highlightsColorFilter]
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps: IDispatchProps = {
   highlightText,
   updateColor,
   updateFilterColor

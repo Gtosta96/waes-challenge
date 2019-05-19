@@ -1,35 +1,85 @@
 .color-button-component {
-	width: 17px;
-	height: 17px;
-	border-radius: 50%;
-	margin-right: 10px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  margin-right: 10px;
   padding: 0;
   border: 0;
   vertical-align: middle;
 }
 
 .color-button-component:hover {
-	border: 4px solid rgba(255,255,255,0.4);
+  border: 4px solid rgba(255, 255, 255, 0.4);
 }
 
-.color-button-component.Red { background-color: #F44336 }
-.color-button-component.Pink { background-color: #E91E63 }
-.color-button-component.Purple { background-color: #9C27B0 }
-.color-button-component.DeepPurple { background-color: #673AB7 }
-.color-button-component.Indigo { background-color: #3F51B5 }
-.color-button-component.Blue { background-color: #2196F3 }
-.color-button-component.LightBlue { background-color: #03A9F4 }
-.color-button-component.Cyan { background-color: #00BCD4 }
-.color-button-component.Teal { background-color: #009688 }
-.color-button-component.Green { background-color: #4CAF50 }
-.color-button-component.LightGreen { background-color: #8BC34A }
-.color-button-component.Lime { background-color: #CDDC39 }
-.color-button-component.Yellow { background-color: #FFEB3B }
-.color-button-component.Amber { background-color: #FFC107 }
-.color-button-component.Orange { background-color: #FF9800 }
-.color-button-component.DeepOrange { background-color: #FF5722 }
-.color-button-component.Brown { background-color: #795548 }
+.color-button-component.Red {
+  background-color: #F44336
+}
+
+.color-button-component.Pink {
+  background-color: #E91E63
+}
+
+.color-button-component.Purple {
+  background-color: #9C27B0
+}
+
+.color-button-component.DeepPurple {
+  background-color: #673AB7
+}
+
+.color-button-component.Indigo {
+  background-color: #3F51B5
+}
+
+.color-button-component.Blue {
+  background-color: #2196F3
+}
+
+.color-button-component.LightBlue {
+  background-color: #03A9F4
+}
+
+.color-button-component.Cyan {
+  background-color: #00BCD4
+}
+
+.color-button-component.Teal {
+  background-color: #009688
+}
+
+.color-button-component.Green {
+  background-color: #4CAF50
+}
+
+.color-button-component.LightGreen {
+  background-color: #8BC34A
+}
+
+.color-button-component.Lime {
+  background-color: #CDDC39
+}
+
+.color-button-component.Yellow {
+  background-color: #FFEB3B
+}
+
+.color-button-component.Amber {
+  background-color: #FFC107
+}
+
+.color-button-component.Orange {
+  background-color: #FF9800
+}
+
+.color-button-component.DeepOrange {
+  background-color: #FF5722
+}
+
+.color-button-component.Brown {
+  background-color: #795548
+}
 
 .activeColor {
-	border: 4px solid  #FFFFFF;
+  border: 3px solid #FFFFFF;
 }
