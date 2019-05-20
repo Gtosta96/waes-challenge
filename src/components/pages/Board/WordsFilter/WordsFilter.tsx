@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import { IAppState } from '../../../../redux/configureStore';
+import { ICoordinates } from '../../../../redux/models/highlighter';
 
 interface IProps {
   text: string;
-  highlights: any[];
+  highlights: ICoordinates[];
 }
 const WordsFilter = (props: IProps) => {
   function getHighlightedTextByColor() {
@@ -27,10 +26,4 @@ WordsFilter.defaultProps = {
   highlights: []
 };
 
-const mapStateToProps = (state: IAppState) => ({});
-const mapDispatchToProps = {};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WordsFilter);
+export default WordsFilter;

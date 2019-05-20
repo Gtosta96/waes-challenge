@@ -10,10 +10,6 @@ import configureStore from './redux/configureStore';
 
 const store = configureStore();
 
-interface IProps {
-  classes?: any;
-}
-
 const App = () => {
   return (
     <Provider store={store}>

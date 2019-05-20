@@ -2,17 +2,10 @@ import React, { Component } from 'react';
 
 import { ICoordinates } from '../../../../redux/models/highlighter';
 
-export interface IHighlightMarkerCoordenates {
-  colStart: number;
-  colEnd: number;
-  text: string;
-}
-
 interface IProps {
   content: string;
-  activeColor: string;
-  highlights: any;
-  onHighlight: (coordinates: IHighlightMarkerCoordenates) => void;
+  coordinates: ICoordinates[];
+  onHighlight: (coordinate: Partial<ICoordinates>) => void;
 }
 
 class HighlightMarker extends Component<IProps> {
@@ -21,7 +14,11 @@ class HighlightMarker extends Component<IProps> {
   public onHighlight = () => {
     const selection = document.getSelection();
 
-    if (selection && selection.type === "Range" && this.ref.current) {
+    if (
+      selection &&
+      selection.type === "Range" &&
+      selection.focusNode.parentElement.nodeName !== "SPAN"
+    ) {
       this.props.onHighlight({
         colStart: selection.anchorOffset,
         colEnd: selection.focusOffset,
@@ -31,18 +28,11 @@ class HighlightMarker extends Component<IProps> {
   };
 
   public highlightContentFromCoordinates = () => {
-    return Object.keys(this.props.highlights).reduce((prev, color) => {
-      const coordinates = this.props.highlights[color];
-
-      let update = prev;
-      coordinates.forEach((coordinate: ICoordinates) => {
-        update = update.replace(
-          coordinate.text,
-          `<span class="${color}">${coordinate.text}</span>`
-        );
-      });
-
-      return update;
+    return this.props.coordinates.reduce((prev: string, coordinate: ICoordinates) => {
+      return prev.replace(
+        coordinate.text,
+        `<span class="${coordinate.color}">${coordinate.text}</span>`
+      );
     }, this.props.content);
   };
 

@@ -1,4 +1,5 @@
 import { EColors } from '../../models/colors';
+import { ICoordinates } from '../../models/highlighter';
 import { IAction } from '../../models/redux';
 import { EActions, IHighlightText, IState, IUpdateColor, IUpdateFilterColor } from './types';
 
@@ -27,44 +28,28 @@ const INITIAL_STATE: IState = {
   textColorFilter: EColors.RED,
 
   highlightsColorFilter: EColors.RED,
-  highlights: {
-    Red: [{ colStart: 0, colEnd: 10, text: "Lorem ipsu" }]
-  }
+  highlights: []
 };
 export default function reducer(state = INITIAL_STATE, action: IAction<any>): IState {
   switch (action.type) {
-    case EActions.UPDATE_COLOR: {
+    case EActions.UPDATE_TEXT_COLOR_FILTER: {
       return {
         ...state,
-        textColorFilter: action.payload.color,
-        highlights: {
-          ...state.highlights,
-          [action.payload.color]: state.highlights[action.payload.color] || []
-        }
+        textColorFilter: action.payload.color
       };
     }
 
     case EActions.UPDATE_FILTER_COLOR: {
       return {
         ...state,
-        highlightsColorFilter: action.payload.color,
-        highlights: {
-          ...state.highlights,
-          [action.payload.color]: state.highlights[action.payload.color] || []
-        }
+        highlightsColorFilter: action.payload.color
       };
     }
 
     case EActions.HIGHLIGHT_TEXT: {
       return {
         ...state,
-        highlights: {
-          ...state.highlights,
-          [state.textColorFilter]: [
-            ...state.highlights[state.textColorFilter],
-            action.payload.coordinates
-          ]
-        }
+        highlights: [...state.highlights, action.payload.coordinates]
       };
     }
 
@@ -74,7 +59,7 @@ export default function reducer(state = INITIAL_STATE, action: IAction<any>): IS
 }
 
 export const updateColor = (color: string): IUpdateColor => ({
-  type: EActions.UPDATE_COLOR,
+  type: EActions.UPDATE_TEXT_COLOR_FILTER,
   payload: { color }
 });
 
@@ -83,7 +68,7 @@ export const updateFilterColor = (color: string): IUpdateFilterColor => ({
   payload: { color }
 });
 
-export const highlightText = (coordinates: string): IHighlightText => ({
+export const highlightText = (coordinates: ICoordinates): IHighlightText => ({
   type: EActions.HIGHLIGHT_TEXT,
   payload: { coordinates }
 });

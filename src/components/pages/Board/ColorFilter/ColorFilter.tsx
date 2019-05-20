@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { IAppState } from '../../../../redux/configureStore';
+import { getHighlighterColors } from '../../../../redux/reducers/highlighter/selectors';
 import ColorButton from '../../../shared/ColorButton/ColorButton';
 import styles from './ColorFilter.module.scss';
 
@@ -25,7 +26,7 @@ const ColorFilter = (props: IProps) => (
 );
 
 const mapStateToProps = (state: IAppState) => ({
-  colors: state.todos.colors
+  colors: getHighlighterColors(state)
 });
 
 export default connect(mapStateToProps)(ColorFilter);

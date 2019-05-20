@@ -3,7 +3,16 @@ import { connect } from 'react-redux';
 
 import { IAppState } from '../../../redux/configureStore';
 import { EColors } from '../../../redux/models/colors';
+import { ICoordinates } from '../../../redux/models/highlighter';
 import { highlightText, updateColor, updateFilterColor } from '../../../redux/reducers/highlighter';
+import {
+  getHighlighterColors,
+  getHighlighterCoordinates,
+  getHighlighterFilteredHighlights,
+  getHighlighterHighlightsColorFilter,
+  getHighlighterText,
+  getHighlighterTextColorFilter,
+} from '../../../redux/reducers/highlighter/selectors';
 import styles from './Board.module.scss';
 import ColorFilter from './ColorFilter/ColorFilter';
 import HighlightMarker from './HighlightMarker/HighlightMarker';
@@ -12,7 +21,7 @@ import WordsFilter from './WordsFilter/WordsFilter';
 interface IStateProps {
   colors: EColors[];
   text: string;
-  textColorFilter: string;
+  textColorFilter: EColors | string;
   highlights: any;
   highlightsColorFilter: string;
   filteredHighlights: any[];
@@ -21,18 +30,22 @@ interface IStateProps {
 interface IOwnProps {}
 
 interface IDispatchProps {
-  highlightText: (text: string) => void;
-  updateColor: (text: string) => void;
-  updateFilterColor: (text: string) => void;
+  highlightText: (coordinate: ICoordinates) => void;
+  updateColor: (color: string) => void;
+  updateFilterColor: (color: string) => void;
 }
 
 interface IState {}
 
 type IProps = IStateProps & IOwnProps & IDispatchProps;
 
+/**
+ * Board (Container Component)
+ * I personally like to keep my Container/Connected components as Classes
+ */
 class Board extends Component<IProps, IState> {
-  public onHighlight = (coordinates: any) => {
-    this.props.highlightText(coordinates);
+  public onHighlight = (coordinates: Partial<ICoordinates>) => {
+    this.props.highlightText({ ...coordinates, color: this.props.textColorFilter });
   };
 
   public render() {
@@ -43,8 +56,7 @@ class Board extends Component<IProps, IState> {
           <ColorFilter activeColor={this.props.textColorFilter} onClick={this.props.updateColor} />
 
           <HighlightMarker
-            highlights={this.props.highlights}
-            activeColor={this.props.textColorFilter}
+            coordinates={this.props.highlights}
             onHighlight={this.onHighlight}
             content={this.props.text}
           />
@@ -65,14 +77,14 @@ class Board extends Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: IAppState): IStateProps => ({
-  colors: state.todos.colors,
-  text: state.todos.text,
-  textColorFilter: state.todos.textColorFilter,
+  colors: getHighlighterColors(state),
+  text: getHighlighterText(state),
+  textColorFilter: getHighlighterTextColorFilter(state),
 
-  highlights: state.todos.highlights,
+  highlights: getHighlighterCoordinates(state),
 
-  highlightsColorFilter: state.todos.highlightsColorFilter,
-  filteredHighlights: state.todos.highlights[state.todos.highlightsColorFilter]
+  highlightsColorFilter: getHighlighterHighlightsColorFilter(state),
+  filteredHighlights: getHighlighterFilteredHighlights(state)
 });
 
 const mapDispatchToProps: IDispatchProps = {

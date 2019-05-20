@@ -8,14 +8,20 @@ interface IProps {
   onClick: (color: string) => void;
 }
 
-const ColorButton = (props: IProps) => (
-  <button
-    type="button"
-    className={`btn color-button-component animate
+const ColorButton = (props: IProps) => {
+  function onClick() {
+    props.onClick(props.color);
+  }
+
+  return (
+    <button
+      type="button"
+      className={`btn color-button-component animate
       ${props.color}
       ${props.activeColor === props.color ? "activeColor" : ""}`}
-    onClick={() => props.onClick(props.color)}
-  />
-);
+      onClick={onClick}
+    />
+  );
+};
 
 export default ColorButton;

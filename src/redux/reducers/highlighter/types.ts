@@ -7,9 +7,9 @@ import { ICoordinates } from '../../models/highlighter';
  * Actions
  */
 export enum EActions {
-  UPDATE_COLOR = "@todos/UPDATE_COLOR",
-  UPDATE_FILTER_COLOR = "@todos/UPDATE_FILTER_COLOR",
-  HIGHLIGHT_TEXT = "@todos/ADD_TODO"
+  UPDATE_TEXT_COLOR_FILTER = "@highlighter/UPDATE_TEXT_COLOR_FILTER",
+  UPDATE_FILTER_COLOR = "@highlighter/UPDATE_FILTER_COLOR",
+  HIGHLIGHT_TEXT = "@highlighter/HIGHLIGHT_TEXT"
 }
 
 /**
@@ -22,22 +22,22 @@ export interface IState {
   readonly textColorFilter: string;
 
   readonly highlightsColorFilter: string;
-  readonly highlights: {
-    [color: string]: ICoordinates[];
-  };
+  readonly highlights: ICoordinates[];
 }
 
 /**
  * Action Creators
  */
-export interface IUpdateColor extends Action<EActions.UPDATE_COLOR> {
-  payload: { color: any };
+export interface IUpdateColor extends Action<EActions.UPDATE_TEXT_COLOR_FILTER> {
+  payload: { color: string };
 }
 
 export interface IUpdateFilterColor extends Action<EActions.UPDATE_FILTER_COLOR> {
-  payload: { color: any };
+  payload: { color: string };
 }
 
 export interface IHighlightText extends Action<EActions.HIGHLIGHT_TEXT> {
-  payload: { coordinates: any };
+  payload: { coordinates: ICoordinates };
 }
+
+export type IHighlightActions = IUpdateColor | IUpdateFilterColor | IHighlightText;
