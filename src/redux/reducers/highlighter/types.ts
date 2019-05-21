@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 
-import { EColors } from '../../models/colors';
-import { ICoordinates } from '../../models/highlighter';
+import { EColors } from '../../../models/colors';
+import { ICoordinates } from '../../../models/highlighter';
 
 /**
  * Actions

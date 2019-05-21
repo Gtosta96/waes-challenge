@@ -1,7 +1,7 @@
-import { EColors } from '../../models/colors';
-import { ICoordinates } from '../../models/highlighter';
-import { IAction } from '../../models/redux';
-import { EActions, IHighlightText, IState, IUpdateColor, IUpdateFilterColor } from './types';
+import { EColors } from '../../../models/colors';
+import { ICoordinates } from '../../../models/highlighter';
+import { IAction } from '../../../models/redux';
+import { EActions, IHighlightText, IState, IUpdateColor as IUpdateTextColorFilter, IUpdateFilterColor } from './types';
 
 const INITIAL_STATE: IState = {
   colors: [
@@ -47,9 +47,16 @@ export default function reducer(state = INITIAL_STATE, action: IAction<any>): IS
     }
 
     case EActions.HIGHLIGHT_TEXT: {
+      const filter = state.highlights.filter(highlight => {
+        return (
+          action.payload.coordinates.colStart >= highlight.colStart &&
+          action.payload.coordinates.colEnd <= highlight.colEnd
+        );
+      });
       return {
         ...state,
-        highlights: [...state.highlights, action.payload.coordinates]
+        // highlights: [...state.highlights, action.payload.coordinates]
+        highlights: [...filter, action.payload.coordinates]
       };
     }
 
@@ -58,7 +65,7 @@ export default function reducer(state = INITIAL_STATE, action: IAction<any>): IS
   }
 }
 
-export const updateColor = (color: string): IUpdateColor => ({
+export const updateTextColorFilter = (color: string): IUpdateTextColorFilter => ({
   type: EActions.UPDATE_TEXT_COLOR_FILTER,
   payload: { color }
 });

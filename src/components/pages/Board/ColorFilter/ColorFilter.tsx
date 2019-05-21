@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { IAppState } from '../../../../redux/configureStore';
 import { getHighlighterColors } from '../../../../redux/reducers/highlighter/selectors';
-import ColorButton from '../../../shared/ColorButton/ColorButton';
+import ColorButton from '../ColorButton/ColorButton';
 import styles from './ColorFilter.module.scss';
 
 interface IProps {

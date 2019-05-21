@@ -1,6 +1,6 @@
-import './ColorButton.css';
-
 import React from 'react';
+
+import styles from './ColorButton.module.scss';
 
 interface IProps {
   color: string;
@@ -16,9 +16,12 @@ const ColorButton = (props: IProps) => {
   return (
     <button
       type="button"
-      className={`btn color-button-component animate
-      ${props.color}
-      ${props.activeColor === props.color ? "activeColor" : ""}`}
+      className={`
+        ${styles.colorButton}
+        ${styles[props.color]}
+        ${props.activeColor === props.color ? styles.activeColor : ""}
+        animate
+      `}
       onClick={onClick}
     />
   );

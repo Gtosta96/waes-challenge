@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { EColors } from '../../../models/colors';
+import { ICoordinates } from '../../../models/highlighter';
 import { IAppState } from '../../../redux/configureStore';
-import { EColors } from '../../../redux/models/colors';
-import { ICoordinates } from '../../../redux/models/highlighter';
-import { highlightText, updateColor, updateFilterColor } from '../../../redux/reducers/highlighter';
+import { highlightText, updateFilterColor, updateTextColorFilter } from '../../../redux/reducers/highlighter';
 import {
   getHighlighterColors,
   getHighlighterCoordinates,
@@ -69,7 +69,11 @@ class Board extends Component<IProps, IState> {
             onClick={this.props.updateFilterColor}
           />
 
-          <WordsFilter text={this.props.text} highlights={this.props.filteredHighlights} />
+          <WordsFilter
+            text={this.props.text}
+            highlights={this.props.filteredHighlights}
+            activeColor={this.props.highlightsColorFilter}
+          />
         </div>
       </div>
     );
@@ -89,7 +93,7 @@ const mapStateToProps = (state: IAppState): IStateProps => ({
 
 const mapDispatchToProps: IDispatchProps = {
   highlightText,
-  updateColor,
+  updateColor: updateTextColorFilter,
   updateFilterColor
 };
 
