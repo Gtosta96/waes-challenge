@@ -22,9 +22,18 @@ class HighlightMarker extends Component<IProps> {
 
     const childNodes = Array.from(this.ref.current.childNodes);
 
-    const length = childNodes.slice(0, -1).reduce((prev, childNode) => {
-      return prev + childNode.textContent.length;
-    }, 0);
+    let length = 0;
+    let node = childNodes[0];
+
+    while (node !== null && node !== selection.startContainer) {
+      const has = Array.from(node.childNodes).find(x => x === selection.startContainer);
+      if (has) {
+        break;
+      }
+
+      length += node.textContent.length;
+      node = node.nextSibling;
+    }
 
     this.props.onHighlight({
       colStart: length + selection.startOffset,
