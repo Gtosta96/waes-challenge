@@ -41,42 +41,52 @@ class HighlightMarker extends Component<IProps> {
       return this.props.content;
     }
 
-    // const start = content.substring(0, coordinates[0].colStart);
-    // const end = content.substring(coordinates[coordinates.length - 1].colEnd, content.length);
+    const start = content.substring(0, coordinates[0].colStart);
+    const end = content.substring(coordinates[coordinates.length - 1].colEnd, content.length);
 
-    // return (
-    //   <>
-    //     <span>{start}</span>
-    //     {this.props.coordinates.map((coordinate, i, allCordinates) => {
-    //       const highlight = <span className={styles[coordinate.color]}>{coordinate.text}</span>;
+    return (
+      <>
+        <span>{start}</span>
+        {this.props.coordinates.map((coordinate, i, allCordinates) => {
+          const highlight = <span className={styles[coordinate.color]}>{coordinate.text}</span>;
+          let next;
+          if (i + 1 !== allCordinates.length) {
+            next = content.substring(coordinates[i].colEnd, coordinates[i + 1].colStart);
+          }
 
-    //       return highlight;
-    //     })}
-    //     <span>{end}</span>
-    //   </>
-    // );
+          return (
+            <>
+              {highlight}
+              {next}
+              {/* {content.substring(coordinates[coordinates.length - 1].colEnd, content.length)} */}
+            </>
+          );
+        })}
+        <span>{end}</span>
+      </>
+    );
 
-    return this.props.coordinates.reduce((prev: string, coordinate: ICoordinates) => {
-      const replacement = prev.replace(
-        coordinate.text,
-        `<span class="${styles[coordinate.color]}">${coordinate.text}</span>`
-      );
+    // return this.props.coordinates.reduce((prev: string, coordinate: ICoordinates) => {
+    //   const replacement = prev.replace(
+    //     coordinate.text,
+    //     `<span class="${styles[coordinate.color]}">${coordinate.text}</span>`
+    //   );
 
-      return replacement;
-    }, this.props.content);
+    //   return replacement;
+    // }, this.props.content);
   };
 
   public render() {
     return (
-      <div
-        ref={this.ref}
-        onMouseUp={this.onHighlight}
-        dangerouslySetInnerHTML={{ __html: this.highlightContentFromCoordinates() }}
-      />
+      // <div
+      //   ref={this.ref}
+      //   onMouseUp={this.onHighlight}
+      //   dangerouslySetInnerHTML={{ __html: this.highlightContentFromCoordinates() }}
+      // />
 
-      // <div ref={this.ref} onMouseUp={this.onHighlight}>
-      //   {this.highlightContentFromCoordinates()}
-      // </div>
+      <div ref={this.ref} onMouseUp={this.onHighlight}>
+        {this.highlightContentFromCoordinates()}
+      </div>
     );
   }
 }

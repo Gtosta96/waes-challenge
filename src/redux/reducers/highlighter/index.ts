@@ -47,16 +47,21 @@ export default function reducer(state = INITIAL_STATE, action: IAction<any>): IS
     }
 
     case EActions.HIGHLIGHT_TEXT: {
-      const filter = state.highlights.filter(highlight => {
-        return (
-          action.payload.coordinates.colStart >= highlight.colStart &&
-          action.payload.coordinates.colEnd <= highlight.colEnd
-        );
+      // const filter = state.highlights.filter(highlight => {
+      //   return (
+      //     action.payload.coordinates.colStart >= highlight.colStart &&
+      //     action.payload.coordinates.colEnd <= highlight.colEnd
+      //   );
+      // });
+
+      const x = [...state.highlights, action.payload.coordinates].slice().sort((a: any, b: any) => {
+        return a.colStart - b.colStart;
       });
+
       return {
         ...state,
         // highlights: [...state.highlights, action.payload.coordinates]
-        highlights: [...filter, action.payload.coordinates]
+        highlights: x
       };
     }
 
