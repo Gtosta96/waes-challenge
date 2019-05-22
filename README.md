@@ -1,44 +1,70 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Author Decisions and Motivations
+
+I took the liberty to take some personal decisions based on my code style/thoughts that I think aggregates value to the final product. However, I took strict care in order to not add any third party library that would help me to deliver the final product.
+In the next sections I explain which tools/libraries the project uses and why.
+
+#### 1. Create React App
+
+I'm using CREA in order to skip the configuration step and fast-forward to the development.
+This is very valuable, since the less time the team spends on configurations, more time they have to focus on deliverables.
+
+Also, CREA provides by default a service worker which "makes" the app work offline an load faster.
+
+#### 2. Typescript
+
+Typescript is a powerful superset which aggregates high value to the code, increasing readability, maintenance, and enhancing the development speed over time. Although it adds certain complexity, Typescript features are all optional, so that, the team can turn them on gradually.
+
+Bellow some benefits from typescript:
+
+- Auto Imports / Auto Resolvers
+- Intelisense
+- Type checking - objects / components / etc.
+- Easy refactory
+- High Customizable (Toggle Features)
+
+> **Why** Typescript over flow?
+> Typescript has a large community, twice as flow in Github stars, and a way better integration with VSCode, which is the most used editor in the day this doc is written. Typescript is also used by default by Angular applications.
+
+#### 3. Tests
+
+CREA provides Jest out of the box, I would add `Enzyme`, but I did not in order to follow the requirements.
+
+## Enhancements (Todos)
+
+- Improve HighlightMarker logic
+- Improve UI/UX
+- Improve test coverage
+
 ## Available Scripts
 
-In the project directory, you can run:
+Inside the project directory, you can run:
 
-### `npm start`
+**App Start**
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```shell-script
+yarn install -g
+yarn install
+yarn start
+```
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+**Tests**
 
-### `npm test`
+```shell-script
+yarn test
+yarn test -- coverage
+```
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Build**
 
-### `npm run build`
+```shell-script
+yarn build
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You can check the application running [clicking here.](https://infallible-mcnulty-398bc0.netlify.com/)
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Many Thanks,
+Gabriel Tosta, gabrieltosta3@gmail.com

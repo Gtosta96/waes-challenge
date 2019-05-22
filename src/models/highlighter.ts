@@ -1,6 +1,6 @@
 import { EColors } from './colors';
 
-export interface ICoordinates {
+export interface IHighlight {
   colStart?: number;
   colEnd?: number;
   text?: string;

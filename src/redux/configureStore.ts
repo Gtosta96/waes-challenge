@@ -1,14 +1,13 @@
 import * as Redux from 'redux';
 import * as ReduxDevtools from 'redux-devtools-extension';
 
-import todosReducer from './reducers/highlighter';
+import highlighterReducer from './reducers/highlighter';
 
 /**
  * Reducers
  */
 const rootReducer = Redux.combineReducers({
-  todos: todosReducer
-  // highlights: highlightsReducer
+  highlighter: highlighterReducer
 });
 
 export type IAppState = ReturnType<typeof rootReducer>;

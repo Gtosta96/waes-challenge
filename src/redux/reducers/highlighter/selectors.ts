@@ -6,16 +6,19 @@ import { IAppState } from '../../configureStore';
  * That way if a refactory is needed on highlighter's state,
  * all the property paths are placed together.
  */
-export const getHighlighterColors = (state: IAppState) => state.todos.colors;
+export const getHighlighterColors = (state: IAppState) => state.highlighter.colors;
 
-export const getHighlighterText = (state: IAppState) => state.todos.text;
+export const getHighlighterText = (state: IAppState) => state.highlighter.text;
 
-export const getHighlighterTextColorFilter = (state: IAppState) => state.todos.textColorFilter;
+export const getHighlighterTextColorFilter = (state: IAppState) =>
+  state.highlighter.textColorFilter;
 
-export const getHighlighterCoordinates = (state: IAppState) => state.todos.highlights;
+export const getHighlighterCoordinates = (state: IAppState) => state.highlighter.highlights;
 
 export const getHighlighterHighlightsColorFilter = (state: IAppState) =>
-  state.todos.highlightsColorFilter;
+  state.highlighter.highlightsColorFilter;
 
 export const getHighlighterFilteredHighlights = (state: IAppState) =>
-  state.todos.highlights.filter(highlight => highlight.color === state.todos.highlightsColorFilter);
+  state.highlighter.highlights.filter(
+    highlight => highlight.color === state.highlighter.highlightsColorFilter
+  );

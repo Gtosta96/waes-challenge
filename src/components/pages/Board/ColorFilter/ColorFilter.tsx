@@ -29,4 +29,4 @@ const mapStateToProps = (state: IAppState) => ({
   colors: getHighlighterColors(state)
 });
 
-export default connect(mapStateToProps)(ColorFilter);
+export default React.memo(connect(mapStateToProps)(ColorFilter));
