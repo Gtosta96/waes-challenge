@@ -4,7 +4,8 @@ import { IAction } from '../../../models/redux';
 import { handleHighlights } from './helpers';
 import { EActions, IHighlightText, IState, IUpdateColor as IUpdateTextColorFilter, IUpdateFilterColor } from './types';
 
-const INITIAL_STATE: IState = {
+// exporting for testing purposes
+export const INITIAL_STATE: IState = {
   colors: [
     EColors.RED,
     EColors.PINK,
@@ -50,7 +51,7 @@ export default function reducer(state = INITIAL_STATE, action: IAction<any>): IS
     case EActions.HIGHLIGHT_TEXT: {
       return {
         ...state,
-        highlights: handleHighlights(state.highlights, action.payload.coordinates)
+        highlights: handleHighlights(state.highlights, action.payload.highlight)
       };
     }
 
@@ -69,7 +70,7 @@ export const updateFilterColor = (color: string): IUpdateFilterColor => ({
   payload: { color }
 });
 
-export const highlightText = (coordinates: IHighlight): IHighlightText => ({
+export const highlightText = (highlight: IHighlight): IHighlightText => ({
   type: EActions.HIGHLIGHT_TEXT,
-  payload: { coordinates }
+  payload: { highlight }
 });

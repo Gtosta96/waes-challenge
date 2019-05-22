@@ -37,7 +37,7 @@ export interface IUpdateFilterColor extends Action<EActions.UPDATE_FILTER_COLOR>
 }
 
 export interface IHighlightText extends Action<EActions.HIGHLIGHT_TEXT> {
-  payload: { coordinates: IHighlight };
+  payload: { highlight: IHighlight };
 }
 
 export type IHighlightActions = IUpdateColor | IUpdateFilterColor | IHighlightText;

@@ -46,7 +46,7 @@ class HighlightMarker extends PureComponent<IProps> {
     const colEnd = length + selection.endOffset;
 
     if (colEnd < colStart) {
-      console.error("TODO: Improve in order to cross highlights");
+      alert("TODO: Improve it in order to cross highlights");
       return;
     }
 

@@ -1,7 +1,7 @@
 import * as Redux from 'redux';
 import * as ReduxDevtools from 'redux-devtools-extension';
 
-import highlighterReducer from './reducers/highlighter';
+import highlighterReducer from './reducers/highlighter/reducer';
 
 /**
  * Reducers

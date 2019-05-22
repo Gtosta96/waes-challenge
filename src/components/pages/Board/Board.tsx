@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { EColors } from '../../../models/colors';
 import { IHighlight } from '../../../models/highlighter';
 import { IAppState } from '../../../redux/configureStore';
-import { highlightText, updateFilterColor, updateTextColorFilter } from '../../../redux/reducers/highlighter';
+import { highlightText, updateFilterColor, updateTextColorFilter } from '../../../redux/reducers/highlighter/reducer';
 import {
   getHighlighterColors,
   getHighlighterCoordinates,
