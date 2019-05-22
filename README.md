@@ -62,7 +62,7 @@ yarn test -- coverage
 yarn build
 ```
 
-You can check the application running [clicking here.](https://infallible-mcnulty-398bc0.netlify.com/)
+You can check the application running [clicking here.](https://gtosta96-waes-challenge.netlify.com/)
 
 ---
 
