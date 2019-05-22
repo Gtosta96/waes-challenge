@@ -1,6 +1,7 @@
 import { EColors } from '../../../models/colors';
 import { IHighlight } from '../../../models/highlighter';
 import { IAction } from '../../../models/redux';
+import { handleHighlights } from './helpers';
 import { EActions, IHighlightText, IState, IUpdateColor as IUpdateTextColorFilter, IUpdateFilterColor } from './types';
 
 const INITIAL_STATE: IState = {
@@ -47,25 +48,9 @@ export default function reducer(state = INITIAL_STATE, action: IAction<any>): IS
     }
 
     case EActions.HIGHLIGHT_TEXT: {
-      const cord = action.payload.coordinates;
-
-      const inRange = (value: number, min: number, max: number) => value <= min || value >= max;
-
-      const filter = state.highlights.filter(highlight => {
-        const leftInRange = inRange(cord.colStart, highlight.colStart, highlight.colEnd);
-        const rightInRange = inRange(cord.colEnd, highlight.colStart, highlight.colEnd);
-
-        return leftInRange && rightInRange;
-      });
-
-      const x = [...filter, cord].slice().sort((a: any, b: any) => {
-        return a.colStart - b.colStart;
-      });
-
       return {
         ...state,
-        // highlights: [...state.highlights, action.payload.coordinates]
-        highlights: x
+        highlights: handleHighlights(state.highlights, action.payload.coordinates)
       };
     }
 

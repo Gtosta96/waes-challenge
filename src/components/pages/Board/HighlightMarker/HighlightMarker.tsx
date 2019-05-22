@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 
 import { IHighlight } from '../../../../models/highlighter';
 import styles from './HighlightMarker.module.scss';
@@ -21,7 +21,7 @@ class HighlightMarker extends PureComponent<IProps> {
     const text = selection.toString();
 
     // Prevents empty selections
-    if (!text) {
+    if (!text.trim()) {
       return;
     }
 
@@ -31,8 +31,10 @@ class HighlightMarker extends PureComponent<IProps> {
     let node = childNodes[0];
 
     while (node !== null && node !== selection.startContainer) {
-      const has = Array.from(node.childNodes).find(x => x === selection.startContainer);
-      if (has) {
+      const isStartContainer = Array.from(node.childNodes).find(
+        x => x === selection.startContainer
+      );
+      if (isStartContainer) {
         break;
       }
 
@@ -40,11 +42,15 @@ class HighlightMarker extends PureComponent<IProps> {
       node = node.nextSibling;
     }
 
-    this.props.onHighlight({
-      colStart: length + selection.startOffset,
-      colEnd: length + selection.endOffset,
-      text
-    });
+    const colStart = length + selection.startOffset;
+    const colEnd = length + selection.endOffset;
+
+    if (colEnd < colStart) {
+      console.error("TODO: Improve in order to cross highlights");
+      return;
+    }
+
+    this.props.onHighlight({ colStart, colEnd, text });
   };
 
   /**
@@ -52,11 +58,10 @@ class HighlightMarker extends PureComponent<IProps> {
    * received from parent component
    */
   public highlightContentFromCoordinates = () => {
-    const content = this.props.content;
-    const coordinates = this.props.coordinates;
+    const { content, coordinates } = this.props;
 
     if (coordinates.length === 0) {
-      return this.props.content;
+      return content;
     }
 
     const start = content.substring(0, coordinates[0].colStart);
@@ -65,42 +70,28 @@ class HighlightMarker extends PureComponent<IProps> {
     return (
       <>
         <span>{start}</span>
-        {this.props.coordinates.map((coordinate, i, allCordinates) => {
+        {coordinates.map((coordinate, i, allCordinates) => {
           const highlight = <span className={styles[coordinate.color]}>{coordinate.text}</span>;
+
           let next;
           if (i + 1 !== allCordinates.length) {
             next = content.substring(coordinates[i].colEnd, coordinates[i + 1].colStart);
           }
 
           return (
-            <>
+            <Fragment key={coordinate.colStart}>
               {highlight}
               {next}
-            </>
+            </Fragment>
           );
         })}
         <span>{end}</span>
       </>
     );
-
-    // return this.props.coordinates.reduce((prev: string, coordinate: ICoordinates) => {
-    //   const replacement = prev.replace(
-    //     coordinate.text,
-    //     `<span class="${styles[coordinate.color]}">${coordinate.text}</span>`
-    //   );
-
-    //   return replacement;
-    // }, this.props.content);
   };
 
   public render() {
     return (
-      // <div
-      //   ref={this.ref}
-      //   onMouseUp={this.onHighlight}
-      //   dangerouslySetInnerHTML={{ __html: this.highlightContentFromCoordinates() }}
-      // />
-
       <div ref={this.ref} onMouseUp={this.onHighlight}>
         {this.highlightContentFromCoordinates()}
       </div>
