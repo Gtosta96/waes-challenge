@@ -1,27 +1,32 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-import { ICoordinates } from '../../../../models/highlighter';
+import { IHighlight } from '../../../../models/highlighter';
 import styles from './HighlightMarker.module.scss';
 
 interface IProps {
   content: string;
-  coordinates: ICoordinates[];
-  onHighlight: (coordinate: Partial<ICoordinates>) => void;
+  coordinates: IHighlight[];
+  onHighlight: (coordinate: Partial<IHighlight>) => void;
 }
 
-class HighlightMarker extends Component<IProps> {
+class HighlightMarker extends PureComponent<IProps> {
   private ref = React.createRef<HTMLDivElement>();
 
+  /**
+   * Trigger onHighlight callback sending the coordenates from
+   * the selected text by user.
+   */
   public onHighlight = () => {
     const selection = document.getSelection().getRangeAt(0);
     const text = selection.toString();
 
+    // Prevents empty selections
     if (!text) {
       return;
     }
 
+    // Calculates the coordenates based
     const childNodes = Array.from(this.ref.current.childNodes);
-
     let length = 0;
     let node = childNodes[0];
 
@@ -42,6 +47,10 @@ class HighlightMarker extends Component<IProps> {
     });
   };
 
+  /**
+   * Prints highlights on the text based on the coordinates
+   * received from parent component
+   */
   public highlightContentFromCoordinates = () => {
     const content = this.props.content;
     const coordinates = this.props.coordinates;
@@ -67,7 +76,6 @@ class HighlightMarker extends Component<IProps> {
             <>
               {highlight}
               {next}
-              {/* {content.substring(coordinates[coordinates.length - 1].colEnd, content.length)} */}
             </>
           );
         })}

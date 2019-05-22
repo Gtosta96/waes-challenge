@@ -1,5 +1,5 @@
 import { EColors } from '../../../models/colors';
-import { ICoordinates } from '../../../models/highlighter';
+import { IHighlight } from '../../../models/highlighter';
 import { IAction } from '../../../models/redux';
 import { EActions, IHighlightText, IState, IUpdateColor as IUpdateTextColorFilter, IUpdateFilterColor } from './types';
 
@@ -84,7 +84,7 @@ export const updateFilterColor = (color: string): IUpdateFilterColor => ({
   payload: { color }
 });
 
-export const highlightText = (coordinates: ICoordinates): IHighlightText => ({
+export const highlightText = (coordinates: IHighlight): IHighlightText => ({
   type: EActions.HIGHLIGHT_TEXT,
   payload: { coordinates }
 });

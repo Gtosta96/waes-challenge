@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { EColors } from '../../../models/colors';
-import { ICoordinates } from '../../../models/highlighter';
+import { IHighlight } from '../../../models/highlighter';
 import { IAppState } from '../../../redux/configureStore';
 import { highlightText, updateFilterColor, updateTextColorFilter } from '../../../redux/reducers/highlighter';
 import {
@@ -21,16 +21,16 @@ import WordsFilter from './WordsFilter/WordsFilter';
 interface IStateProps {
   colors: EColors[];
   text: string;
-  textColorFilter: EColors | string;
-  highlights: any;
+  textColorFilter: string;
+  highlights: IHighlight[];
   highlightsColorFilter: string;
-  filteredHighlights: any[];
+  filteredHighlights: IHighlight[];
 }
 
 interface IOwnProps {}
 
 interface IDispatchProps {
-  highlightText: (coordinate: ICoordinates) => void;
+  highlightText: (coordinate: IHighlight) => void;
   updateColor: (color: string) => void;
   updateFilterColor: (color: string) => void;
 }
@@ -43,8 +43,8 @@ type IProps = IStateProps & IOwnProps & IDispatchProps;
  * Board (Container Component)
  * I personally like to keep my Container/Connected components as Classes
  */
-class Board extends Component<IProps, IState> {
-  public onHighlight = (coordinates: Partial<ICoordinates>) => {
+class Board extends PureComponent<IProps, IState> {
+  public onHighlight = (coordinates: Partial<IHighlight>) => {
     this.props.highlightText({ ...coordinates, color: this.props.textColorFilter });
   };
 

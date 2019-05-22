@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 
 import { EColors } from '../../../models/colors';
-import { ICoordinates } from '../../../models/highlighter';
+import { IHighlight } from '../../../models/highlighter';
 
 /**
  * Actions
@@ -22,7 +22,7 @@ export interface IState {
   readonly textColorFilter: string;
 
   readonly highlightsColorFilter: string;
-  readonly highlights: ICoordinates[];
+  readonly highlights: IHighlight[];
 }
 
 /**
@@ -37,7 +37,7 @@ export interface IUpdateFilterColor extends Action<EActions.UPDATE_FILTER_COLOR>
 }
 
 export interface IHighlightText extends Action<EActions.HIGHLIGHT_TEXT> {
-  payload: { coordinates: ICoordinates };
+  payload: { coordinates: IHighlight };
 }
 
 export type IHighlightActions = IUpdateColor | IUpdateFilterColor | IHighlightText;

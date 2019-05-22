@@ -27,4 +27,4 @@ const ColorButton = (props: IProps) => {
   );
 };
 
-export default ColorButton;
+export default React.memo(ColorButton);
